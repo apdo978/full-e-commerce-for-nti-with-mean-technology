@@ -1,0 +1,116 @@
+ng new project name --no-standalone (optional)
+angular .json for angular cofig (styles and scripts)
+package.json important as a whole project for npm 
+ng serve --open to open in browser and start your app
+module is the parent for componants 
+u should have at least one componant that collect all your componants in no stand alone 
+in stand alone each componant has its own module
+when u create a new componant
+in type script file 
+import { Component} from '@angular/core';
+@Component({
+    selector: 'name of the module-componant nam',
+    template: 'html of the compnant's path  ' or html code 
+    styleUrls: [path of styles files ]
+})
+export class componant name {
+    title:string = app_1  variable u can use in html
+}
+ import it and add it on its module (app.module) by default in declaration 
+ add its selector on app.html 
+ or ng g c componant name --skip-tests to skip tests files 
+ decorator @ specify type of typescript file  types injectable / componant/ngModule @input()/ @output
+
+=================binding =================
+<input #inputref (keyUp)="function(inputref.value)">
+#refname  === document .get element in angular
+[class.(classoncss)]="condition"
+[style.color]
+[style.display]="'red'"
+[ngstyle]="{style:basedon condition}condition?style" 
+[ngstyle]="{style:basedon condition}condition?style" 
+[ngclass]="{class:basedon condition}condition?class" 
+
+one way binding from ts to html interpolation 2nd property binding 3rd event binding 
+1-one way binding 
+interpolation {{name of the variable or any js}} in html 
+2-property binding
+<[attrebiute]="name of property or any js "> 
+for [class] = "'to escape'" 
+note any image should be in assets folder !importantttttt
+3-event binding 
+event binding<(event)="function name">
+two way ts => html html=> to ts
+---------------
+for event 
+function (e:keyboard or mouse ){
+const input = e.target as htmlInputElement
+}
+<(keyup)="function($event)">(object)
+2-way binding 
+import forms module in app. module 
+add it in imports array
+in its class componant declare variable sraech term :string = '' intial value required
+in html tag <[(ngmodel)]=searchterm>
+----12
+==============ng template ==============
+<ng-template> #name  any html will appear when u call it  </ng-template>
+<*ngif="isactive; else name ">
+directives 
+structured directive
+<div [ngSwitch]=variable>
+<*ngSwitchCase = value > if this value equal to the variable   this element only eill apear
+<*ngSwitchCase = value > 
+<*ngSwitchCase = value > 
+<*ngSwitchCase = value > 
+<*ngSwitchCase = value > 
+<*ngSwitchDefault = value > will apear if no value matches the variable 
+------13
+attrebiute directive
+attereputes directive for more condetions than property binding
+[ngClass]="{class:condetion,
+class:isactive or any variable ,
+background-color:isActive?'yellow':'blue'}"
+---------14
+componant directive (routing )
+in app .route.module.ts in routs const in array of objects [{path: "",componant:name of the componant}]
+in the componant <a with no href routerLiink="path">
+in the app compnant html <router-Outlet>
+all route componant
+</router-Outlet>
+-----------data transfer servcies 
+ng g s name of the service 
+with imjector decorator
+we will go to the app module  import httpClintmodule in imports 
+back to the service if we ant to make a prop inside a class its better to make in as an argument in the constructor
+make it privte if u want to keep it insid this class only 
+(_nameoftheserviceuwant:HttpClient){
+}
+methodename(){
+    this._nameoftheservice.get and all methode of http clint will apear .get(api;ink)//to fetch data
+}
+go to the componant class {constructor(privte  name:servicename){dont write logic inside constructooor
+}
+   this.servicename.method.subscribe({
+        next:(data)=>{},
+        err:(err)={},
+        complete:()=>{}
+    })
+}
+============componants life cycls
+-init:ngOnInit
+-xhanges:ngOnChange
+-destroy:ngOnDestroy
+=============reactive forms 
+1- in app module import reactive form module
+make your html form and in  its ts file class
+form name :formgroup = new formGroup({
+    field name : new FormControl(),
+    field name : new FormControl(),
+    field name : new FormControl(intial value),
+})
+in html in form tag <[formgroup]="name of form ,(ngSubmit)="methode(formname)">
+-------------18
+ng %n in(name,name) do command (ng g c %n)--skip-tests
+data transfer from parent to child or oppesite 
+inside parent call the child componant with selector and on html  
