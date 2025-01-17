@@ -11,6 +11,7 @@ const rateLimit = require('express-rate-limit');
 const upload = require('./Mvc/Controllers/multers.js');
 const usertyperoute = require('./Mvc/routs/userTypesroutes');
 const cors = require('cors')
+const orders = require('./Mvc/routs/adminrouts.js')
 
 app.use(cors({
     origin: 'http://localhost:4200'}));
@@ -27,6 +28,7 @@ connectDB()
 
 
 app.use("/Users", Userroute)
+app.use("/admins", orders)
 app.use("/Products", productroute)
 app.use('/insertSuperUser', usertyperoute)
 app.post('/upload', upload.array('file', 5), (req, res) => {

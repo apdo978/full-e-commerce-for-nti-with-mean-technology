@@ -58,55 +58,55 @@ const getAllUsers =async (req, res) => {
     }
 }
 
-const DeleteUsers = async function (req, res) {
-    try {
-       const result = validationResult(req)
-        if (!result.isEmpty()) {
-            const [error] = result.array()
-            return res.status(400).json({ status: "fail", data: { data: error.path + " has " + error.msg } });
-        }
-            const {email,password} = req.body
-            const Userchk = await Users.findOne({email})
-            if (Userchk){
-                  const hashchk =  await encrypt.compare(password, Userchk.password)
-                if (hashchk){
-        const DeletedUser = await Users.findOneAndDelete({ email, password:Userchk.password })
-        res.status(201).json({
-                        "status": "success",
-                                    "data": {
-                                            "data": `User Has Been ${DeletedUser.email} Deleted Succfully `
-                                        }
-        })
-                } else {
-                    res.status(400).json({
+// const DeleteUsers = async function (req, res) {
+//     try {
+//        const result = validationResult(req)
+//         if (!result.isEmpty()) {
+//             const [error] = result.array()
+//             return res.status(400).json({ status: "fail", data: { data: error.path + " has " + error.msg } });
+//         }
+//             const {email,password} = req.body
+//             const Userchk = await Users.findOne({email})
+//             if (Userchk){
+//                   const hashchk =  await encrypt.compare(password, Userchk.password)
+//                 if (hashchk){
+//         const DeletedUser = await Users.findOneAndDelete({ email, password:Userchk.password })
+//         res.status(201).json({
+//                         "status": "success",
+//                                     "data": {
+//                                             "data": `User Has Been ${DeletedUser.email} Deleted Succfully `
+//                                         }
+//         })
+//                 } else {
+//                     res.status(400).json({
 
-                        "status": "fail",
-                        "data": {
-                            "data": "User has been deleted or not found"
-                        }
-                    })
-}
-            } else {
-                res.status(400).json({
+//                         "status": "fail",
+//                         "data": {
+//                             "data": "User has been deleted or not found"
+//                         }
+//                     })
+// }
+//             } else {
+//                 res.status(400).json({
 
-                    "status": "fail",
-                    "data": {
-                        "data": "User has been deleted or not found"
-                    }
-                })
-}
-}
+//                     "status": "fail",
+//                     "data": {
+//                         "data": "User has been deleted or not found"
+//                     }
+//                 })
+// }
+// }
 
-    catch (err) {
-        res.status(400).json({
-            status: "error",
-            "message": "An error occurred",
-            "code": 500,
-            "data": {}
-        });
-        console.log({ err: err.message });
-    }
-}
+//     catch (err) {
+//         res.status(400).json({
+//             status: "error",
+//             "message": "An error occurred",
+//             "code": 500,
+//             "data": {}
+//         });
+//         console.log({ err: err.message });
+//     }
+// }
 const EditUsers = async function (req, res) {
     try {
        const result = validationResult(req)
@@ -219,7 +219,7 @@ const verify = (req, res,next) => {
         if (err) {
             return res.status(401).send('Invalid token');
         }
-        req.user = decoded;  // حفظ البيانات المفككة في `req.user`
+        req.user = decoded; 
         next();
     });
 
@@ -230,7 +230,10 @@ const isAdmin = async (req,res,next)=>{
     if (req.user!=undefined){
         
         try{
+            console.log(req.user);
+            
             if (req.body.ObjectId !== undefined){
+                console.log("defined");
                
                 const dbChek = await UsersTypess.find({ _id: req.body.ObjectId })
                 if (dbChek.length !== 0) {next() }
@@ -242,7 +245,16 @@ const isAdmin = async (req,res,next)=>{
                 }
             })
         }
-}}
+}
+            else {
+                return res.status(404).json({
+                    "status": "fail",
+                    "data": {
+                        "field": "obj id invalid"
+                    }
+                })
+            }
+}
         catch (err) {
             res.status(400).json({
                 "status": "fail",
@@ -264,7 +276,7 @@ else{
 
     
 }//require jwt verify
-module.exports = { insertUser, getAllUsers, DeleteUsers, EditUsers, loginUser, verify, isAdmin}
+module.exports = { insertUser, getAllUsers, EditUsers, loginUser, verify, isAdmin}
 /*{
             status: "success", data: {
                 data: `New User Has Been Created Succfully ${newUser.name}` } } */

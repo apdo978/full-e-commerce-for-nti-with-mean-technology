@@ -13,3 +13,6 @@ exports.editproductsvalidator =[body('name').trim().notEmpty().isString().isLeng
 exports.deleteproductsvalidator =[body('name').trim().notEmpty().isString().isLength({min:4}),
                                 body('id').trim().notEmpty().isString(),
 ]
+exports.Cartsvalidator = [
+
+]

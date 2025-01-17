@@ -1,4 +1,4 @@
-require("dotenv").config({path:"../app.env"})
+require("dotenv").config({path:"../../app.env"})
 const { default: mongoose } = require("mongoose")
 const model =require('../models/productsmodel')
 mongoose.connect(process.env.databaseurl).then(console.log("db connected")
@@ -24,6 +24,13 @@ const getpro = async (api) => {
 
 getpro(process.env.apiLink)
     .then(async (data) => {
+     data.map((ele)=>{
+            ele.qunt = Math.floor(Math.random() * (200 - 100 + 1)) + 100
+            console.log(ele);
+            
+        })
+        console.log(data);
+        
         await model.insertMany(data);
         console.log("data inserted");
     })

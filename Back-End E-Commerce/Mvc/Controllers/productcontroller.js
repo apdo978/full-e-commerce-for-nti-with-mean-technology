@@ -1,5 +1,6 @@
 const productsCollection = require('../models/productsmodel')
-const { validationResult } = require('express-validator')
+const cartsCollection = require('../models/CartModel')
+const { validationResult, body } = require('express-validator')
 exports.insertProduct = async function (req, res) {
     try {
         const result = validationResult(req)
@@ -9,10 +10,10 @@ exports.insertProduct = async function (req, res) {
         }
         console.log(req.body)
         let newProduct = await productsCollection.create(req.body)
-        req.body.msg ="inserted Succfuly"
+        res.body.msg ="inserted Succfuly"
         res.status(201).json({
             status: "success", data: {
-                data: req.body
+                data: res.body.msg
             }
         })
     }
@@ -47,37 +48,97 @@ exports.getAllProducts =async (req, res) => {
         console.log({ err: err.message });
     }
 }
-exports.deleteproduct =  async function (req, res) {
-    try {
-       const result = validationResult(req)
-        if (!result.isEmpty()) {
-            const [error] = result.array()
-            return res.status(400).json({ status: "fail", data: { data: error.path + " has " + error.msg } });
-        }
-            const {email,password} = req.body
-        const DeletedUser = await Users.findOneAndDelete( { email, password})
-     DeletedUser? res.status(201).json({
-                "status": "success",
-                "data": {
-                    "data": `User Has Been ${DeletedUser.email} Deleted Succfully `
-                }
-            }
-     ) : res.status(400).json( {
-            "status": "fail",
-            "data": {
-                "data": "User has been deleted or not found"
+//(neglected)exports.deleteproduct =  async function (req, res) {
+//     try {
+//        const result = validationResult(req)
+//         if (!result.isEmpty()) {
+//             const [error] = result.array()
+//             return res.status(400).json({ status: "fail", data: { data: error.path + " has " + error.msg } });
+//         }
+//             const {email,password} = req.body
+//         const DeletedUser = await Users.findOneAndDelete( { email, password})
+//      DeletedUser? res.status(201).json({
+//                 "status": "success",
+//                 "data": {
+//                     "data": `User Has Been ${DeletedUser.email} Deleted Succfully `
+//                 }
+//             }
+//      ) : res.status(400).json( {
+//             "status": "fail",
+//             "data": {
+//                 "data": "User has been deleted or not found"
+//             }
+//         })
+
+//     }
+
+//     catch (err) {
+//         res.status(400).json({
+//             status: "error",
+//             "message": "An error occurred",
+//             "code": 500,
+//             "data": {}
+//         });
+//         console.log({ err: err.message });
+//     }
+// }
+exports.UsersCart = async (req, res,next) => {//new functionalty added
+    try{
+    const result = validationResult(req)
+    if (!result.isEmpty()) {
+        const [error] = result.array()
+        return res.status(400).json({ status: "fail", data: { data: error.path + " has " + error.msg } });
+    }
+    const { name, email } = req.user//name , email 
+    let flag = 1
+        order = { name, email, products:req.body } 
+        let ids = []
+           for (let i = 0; i < req.body.length; i++) {
+               let datbal = await productsCollection.updateOne({ id: req.body[i].id, avilable:true, $expr: { $gte: ["$qunt", req.body[i].total || 0] } }, { $inc: { qunt :-req.body[i].total||0}})
+               if (datbal.modifiedCount == 0 && datbal.matchedCount == 0){
+                   await productsCollection.updateOne({ $and: [{ id: req.body[i].id }, { avilable: true }] }, { avilable: false })
+                flag = 0
+               }
+            
+           }
+               
+        
+        let newCart = await cartsCollection.create(order)
+       
+        
+        
+        // console.log(name,email);
+        
+        // console.log(datbal);
+        
+        // console.log(newCart);
+       
+        if(flag == 1){
+        res.status(201).json({
+            status: "success", data: {
+                data: res.msg || "",
             }
         })
+        } else {
+            res.status(500).json({
+                status: "error",
+                "message": "An error occurred",
+                "code": 500,
+                "data": { data: "this Product not found now " }
+            });
+}}
 
-    }
-
+    
+  
     catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             status: "error",
             "message": "An error occurred",
             "code": 500,
-            "data": {}
+            "data": { data: err.message }
         });
-        console.log({ err: err.message });
+
     }
+
+
 }

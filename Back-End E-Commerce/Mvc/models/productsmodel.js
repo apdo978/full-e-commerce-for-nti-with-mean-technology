@@ -10,7 +10,9 @@ const ProductSchema = mong.Schema({
     description: String,
     category:String,
     image: { type: String },
-    rating: Object
+    rating: Object,
+    qunt: { type: Number, required :true},
+    avilable:{type:Boolean,default:true}
 }, { timestamps: true })
 
 module.exports = mong.model('Products', ProductSchema)
