@@ -1,0 +1,24 @@
+<button (click)="toggleCard()"  class="btn btn-outline-dark toggle-button ">ShowCart</button>
+<div class="side-card" [class.open]="isCardOpen" >
+    <div class="card">
+        <div class="card-header">
+            <h3>منتجات الكارت</h3>
+            <button class="close-btn"  (dblclick)="isCardOpen = false" (click)="clearCard()">&#x2715;</button>
+        </div>
+        <div class="card-body" *ngIf="isCardOpen">
+            <div class="product" *ngFor="let product of productss">
+                <img [src]="product.image" alt="Product Image" class="product-image" />
+                <div class="product-info">
+                    <h4>{{ product.title }}</h4>
+                    <p class="product-description">{{ product.description }}</p>
+                    <!-- <p class="product-quantity quantity  ">Quantity:{{ product?.qunt }}</p> -->
+                    <p class="product-price" *ngIf="product.qunt!=undefined">Quntity  {{ product.qunt}}</p>
+                    <span class="product-price">{{ product.price | currency }}</span>
+                    <p class="product-price" *ngIf="product.qunt!=undefined">Total  {{ product.qunt*product.price}}</p>
+                </div>
+            </div>
+            <button class="btn btn-outline-dark  " (click)="orderfun()">Order Now</button>
+    </div>
+</div>
+
+</div>

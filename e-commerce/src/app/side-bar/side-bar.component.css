@@ -1,0 +1,9 @@
+.sidebar{
+    width: fit-content;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 50px;
+    left: 50px;
+}

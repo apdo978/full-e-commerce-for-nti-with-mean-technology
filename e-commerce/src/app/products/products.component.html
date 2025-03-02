@@ -1,0 +1,12 @@
+<div class="row justify-content-center gx-4 gy-3">
+    <input [(ngModel)]="searchTerm" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <div class="card col-md-4" *ngFor="let product of arr | search:searchTerm " style="width: 18rem;">
+        <img [src]="product.image" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <p class="card-text">{{product.description}}</p>
+            <h5 class="card-title">{{product.price | currency}}</h5>
+            <button type="button" (click)="showDetails(product) " class="btn btn-primary">Product Details</button>
+        </div>
+    </div>
+</div>

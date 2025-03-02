@@ -1,0 +1,88 @@
+<div class="form-container">
+    <h2>Add Product</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="id"> ObjectId:</label>
+            <input id="id" formControlName="ObjectId" />
+            <div *ngIf="productForm.get('ObjectId')?.invalid && productForm.get('ObjectId')?.touched">
+                <small *ngIf="productForm.get('ObjectId')?.errors?.['required']">ID is required.</small>
+                <small *ngIf="productForm.get('ObjectId')?.errors?.['pattern']">Enter a valid number.</small>
+            </div>
+            </div>
+        <div>
+            <label for="id">Product ID:</label>
+            <input id="id" formControlName="id" />
+            <div *ngIf="productForm.get('id')?.invalid && productForm.get('id')?.touched">
+                <small *ngIf="productForm.get('id')?.errors?.['required']">ID is required.</small>
+                <small *ngIf="productForm.get('id')?.errors?.['pattern']">Enter a valid number.</small>
+            </div>
+        </div>
+        <div>
+            <label for="name">Product title:</label>
+            <input id="name" formControlName="title" />
+            <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched">
+                <small *ngIf="productForm.get('title')?.errors?.['required']">Name is required.</small>
+                <small *ngIf="productForm.get('title')?.errors?.['minlength']">Minimum 3 characters required.</small>
+            </div>
+        </div>
+
+        <div>
+            <label for="price">Price:</label>
+            <input id="price" formControlName="price" />
+            <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+                <small *ngIf="productForm.get('price')?.errors?.['required']">Price is required.</small>
+                <small *ngIf="productForm.get('price')?.errors?.['pattern']">Enter a valid number.</small>
+            </div>
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description"></textarea>
+            <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+                <small *ngIf="productForm.get('description')?.errors?.['required']">Description is required.</small>
+                <small *ngIf="productForm.get('description')?.errors?.['maxlength']">Maximum 200 characters
+                    allowed.</small>
+            </div>
+        </div>
+        <div>
+            <label for="category">Category:</label>
+            <input id="category" formControlName="category" />
+            <div *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+                <small *ngIf="productForm.get('category')?.errors?.['required']">Category is required.</small>
+            </div>
+        </div>
+        
+        <div>
+            <label for="image">Image URL:</label>
+            <input id="image" formControlName="imageUrl" />
+            <div *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched">
+                <small *ngIf="productForm.get('imageUrl')?.errors?.['required']">Image URL is required.</small>
+                <small *ngIf="productForm.get('imageUrl')?.errors?.['pattern']">Enter a valid URL for an image.</small>
+            </div>
+        </div>
+        
+    <div formGroupName="rating">
+        <div>
+            <label for="rate">Rating (Rate):</label>
+            <input id="rate" formControlName="rate" />
+            <div *ngIf="productForm.get('rating.rate')?.invalid && productForm.get('rating.rate')?.touched">
+                <small *ngIf="productForm.get('rating.rate')?.errors?.['required']">Rate is required.</small>
+                <small *ngIf="productForm.get('rating.rate')?.errors?.['pattern']">Enter a valid rating (0-5).</small>
+            </div>
+        </div>
+    
+        <div>
+            <label for="count">Rating (Count):</label>
+            <input id="count" formControlName="count" />
+            <div *ngIf="productForm.get('rating.count')?.invalid && productForm.get('rating.count')?.touched">
+                <small *ngIf="productForm.get('rating.count')?.errors?.['required']">Count is required.</small>
+                <small *ngIf="productForm.get('rating.count')?.errors?.['pattern']">Enter a valid number.</small>
+            </div>
+        </div>
+    </div>
+
+
+
+        <button type="submit" [disabled]="productForm.invalid">Add Product</button>
+    </form>
+</div>

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/products">
+        <img src="assets/costs-nothing-dream-big-motivational-wall-art-home-decor-decals-318_grande.webp"
+            class="ms-2" alt="">
+
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="Home">Home </a>
+            </li>
+            @if (userType=='Admin') {
+            <li class="nav-item">
+                <a class="nav-link"   routerLink="panal">panal </a>
+            </li>}
+
+            
+            <li class="nav-item">
+                <a class="nav-link" routerLink="products">Products</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="login" (click)="logout()" *ngIf="isAuth">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="Account" *ngIf="isAuth">Account</a>
+            </li>
+            
+            <app-cart></app-cart>
+        </ul>
+    </div>
+</nav>

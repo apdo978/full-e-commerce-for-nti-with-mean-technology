@@ -1,0 +1,127 @@
+/* زر الفتح/الإغلاق */
+.toggle-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1100;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+/* الكارت الجانبي */
+.side-card {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f8f9fa;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 1rem;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.side-card.open {
+    right: 0;
+}
+
+/* محتوى الكارت */
+.side-card p {
+    margin: 1rem 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* المنتج */
+.product {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 0;
+    align-items: center;
+}
+
+.product:last-child {
+    border-bottom: none;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    flex: 1;
+    text-align: left;
+}
+
+.product-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #007bff;
+}
+
+.product-info h4:hover {
+    text-decoration: underline;
+}
+
+.product-description {
+    margin: 0.5rem 0;
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 1rem;
+}
+
+/* تحسين استجابة التصميم */
+@media (max-width: 768px) {
+    .side-card {
+        width: 100%;
+    }
+
+    .product {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-info {
+        text-align: center;
+    }
+}
+.product-quantity {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+.quantity {
+    font-weight: bold;
+    color: #007bff;
+}

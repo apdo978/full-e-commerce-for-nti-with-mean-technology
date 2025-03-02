@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Orders List</h1>
+    <div *ngFor="let order of orders" class="order">
+        <h2>{{ order.name }} ({{ order.email }})</h2>
+        <p><strong>Created At:</strong> {{ order.createdAt | date:'medium' }}</p>
+        <p><strong>Updated At:</strong> {{ order.updatedAt | date:'medium' }}</p>
+        <div class="products">
+            <h3>Products:</h3>
+            <div *ngFor="let product of order.products" class="product">
+                <img [src]="product.image" [alt]="product.title" />
+                <div class="details">
+                    <h4>{{ product.title }}</h4>
+                    <p>{{ product.description }}</p>
+                    <p><strong>Category:</strong> {{ product.category }}</p>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <p><strong>Rating:</strong> {{ product.rating.rate }} ({{ product.rating.count }} reviews)</p>
+                    <p *ngIf="product.qunt"><strong>Quantity:</strong> {{ product.qunt }}</p>
+                    <p *ngIf="product.avilable !== undefined"><strong>Available:</strong> {{ product.avilable ? 'Yes' :
+                        'No' }}</p>
+                    <p><strong>Total:</strong> {{ product.total }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
