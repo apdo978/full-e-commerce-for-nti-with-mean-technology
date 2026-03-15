@@ -34,6 +34,7 @@ This is an e-commerce project that includes:
 - Express REST API (default port `3000`)
 - MongoDB persistence (default `mongodb://127.0.0.1:27017/Users`)
 - JWT-based authentication/authorization
+- O-Auth 2.0 With Google
 - Product endpoints and admin endpoints
 - File upload endpoint using Multer
 
